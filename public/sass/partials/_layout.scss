@@ -1,0 +1,38 @@
+@keyframes moveBg {
+  from {
+    background-position: top center;
+  }
+  to {
+    background-position: bottom center;
+  }
+}
+
+body {
+  background-color: $black;
+  background-image: url("/images/bg.png");
+  background-repeat: repeat;
+  animation: moveBg;
+  animation-duration: 300s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: linear;
+  min-height: 100vh;
+  position: relative;
+}
+
+.content {
+  padding: 40px 0;
+}
+
+.wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+  @media all and (max-width: 920px) {
+    margin: 0 30px;
+  }
+}
+
+.search {
+  text-transform: uppercase;
+}

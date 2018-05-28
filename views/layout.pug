@@ -1,0 +1,36 @@
+doctype html
+html
+  head
+    title= `${title} | ${h.siteName}`
+    link(rel='stylesheet', href='/dist/style.css')
+    link(rel="shortcut icon" type="image/png" href="/images/icons/y.png")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    link(href="https://fonts.googleapis.com/css?family=Prosto+One" rel="stylesheet")
+
+  body
+    block header
+      header.top
+        .wrapper
+          nav.nav
+            .nav-section#logo
+              a.nav-section-logo(href="/")
+                h2 stocky
+
+    block messages
+      if locals.flashes
+        .wrapper
+          .inner
+            .flash-messages
+              - const categories = Object.keys(locals.flashes)
+              each category in categories
+                each message in flashes[category]
+                  .flash(class=`flash-${category}`)
+                    p.flash-text!= message
+                    button.flash-remove(onClick="this.parentElement.remove()") &times;
+    
+    .content
+      .wrapper
+        block content
+
+    block scripts
+      script(src="/dist/App.bundle.js")
