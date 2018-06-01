@@ -10,6 +10,9 @@ mongoose.connection.on('error', (err) => {
   console.error(`🙅 🚫 🙅 🚫 🙅 🚫 🙅 🚫 → ${err.message}`);
 });
 
+// import models
+require('./models/Stock');
+
 // Start!
 const app = require('./app');
 

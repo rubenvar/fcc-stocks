@@ -2,45 +2,30 @@ extends layout
 
 block content
   h1 The stocks today:
-  .chart-container
-    .buttons
-    .chart
-      canvas(id="stocks-chart" width="400" height="100")
   .stocks
     each stock in stocks
       p #{stock.quote.companyName} – #{stock.quote.symbol}
-      each value in stock.chart
-        ol
-          li #{value.date}: #{value.close}
-  pre= h.dump(datasets)
-  //- pre= h.dump(stocks)
-  //- - let datasetJSON = JSON.stringify(datasets, null, 2);
-  //- - console.log(datasetJSON);
-  //- need an array of the dates (labels) for X
+      //- Add button to delete the stock
+    .new-stock
+      form.add-stock(action="/add-stock" method="POST")
+        label(for="newStock") Type the stock symbol:
+        input(type="text" name="newStock" id="newStock" placeholder="FB, MSFT, AMZN")
+        input(type="submit" value="Add new stock")
+  .chart-container
+    .buttons
+    .chart
+      canvas(id="stocks-chart" width="400" height="250")
   script.
-    datesString="#{dates}";
-    //- datasetsString="#{datasets}"
-    //- let datasetsJSON = JSON.stringify(datasets, null, 2);
+    let labels = !{dates};
+    let datasets = !{datasets};
+
     window.onload = function() {
-      const dates = datesString.split(',');
-      //- console.log(datasetsJSON);
-
-      let data = {
-        labels: dates,
-        datasets: [{
-          label: 'coco',
-          data: [10,20,30],
-          borderColor: 'red'
-        }, {
-          label: 'coco2',
-          data: [20,30,10],
-          borderColor: 'green'
-        }]
-      };
-
       let ctx = document.getElementById("stocks-chart").getContext('2d');
       let stocksChart = new Chart(ctx, {
         type: 'line',
-        data
+        data: {
+          labels,
+          datasets
+        }
       });
     }
